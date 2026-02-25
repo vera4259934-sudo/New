@@ -163,7 +163,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
 
         // создание сыра
         QuantityPopup cheeseQuantityPopup = new QuantityPopup("cheese",
-                1, 1000, 1, "src/img/cheese_quantity.png",
+                1, 1000, 150, "src/img/cheese_quantity.png",
                 new Rectangle(329, 104, 362 - 329 + 1, 140 - 104 + 1),
                 new Rectangle(28, 104, 54 - 28 + 1, 140 - 104 + 1),
                 new Rectangle(177, 152, 219 - 177 + 1, 174 - 152 + 1),
@@ -171,7 +171,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         quantityPopupsMap.put(cheese, cheeseQuantityPopup);
 
         QuantityPopup cheese2QuantityPopup = new QuantityPopup("cheese2",
-                1, 1000, 1, "src/img/cheese2_quantity.png",
+                1, 1000, 125, "src/img/cheese2_quantity.png",
                 new Rectangle(329, 104, 362 - 329 + 1, 140 - 104 + 1),
                 new Rectangle(28, 104, 54 - 28 + 1, 140 - 104 + 1),
                 new Rectangle(177, 152, 219 - 177 + 1, 174 - 152 + 1),
@@ -179,7 +179,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         quantityPopupsMap.put(cheese2, cheese2QuantityPopup);
 
         QuantityPopup tomatoQuantityPopup = new QuantityPopup("tomato",
-                1, 1000, 1, "src/img/tomato_quantity.png",
+                1, 20, 1, "src/img/tomato_quantity.png",
                 new Rectangle(329, 104, 362 - 329 + 1, 140 - 104 + 1),
                 new Rectangle(28, 104, 54 - 28 + 1, 140 - 104 + 1),
                 new Rectangle(177, 152, 219 - 177 + 1, 174 - 152 + 1),
