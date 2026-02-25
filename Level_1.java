@@ -458,3 +458,4 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
+//jhbhjbj
