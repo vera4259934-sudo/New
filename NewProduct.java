@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class NewProduct extends JComponent {
 
-    private final String name;
+    public final String name;
     private boolean draggable;
     private int initialX;
     private int initialY;

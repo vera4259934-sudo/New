@@ -29,6 +29,8 @@ public class Level_1 extends JLayeredPane implements MouseListener, ActionListen
     private NewProduct dish;
     private NewProduct spoon;
     private NewProduct knife;
+    private NewProduct boardWithCheese;
+    private NewProduct boardWithCutCheese;
 /*---------------------------------------------------------------------------------------*/
 // Множество продуктов, для которых требуется окно ввода количества.
 private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
@@ -84,6 +86,9 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         knife = new NewProduct("knife", true,
             "src/img/kneef.png","src/img/kneef_selected.png",
             "src/img/kneef.png","src/img/kneef_selected.png");
+        boardWithCutCheese = new NewProduct("board_cheese_12", false,
+                "src/img/board_cheese_12.png","src/img/board_cheese_12.png",
+                "src/img/board_cheese_12.png","src/img/board_cheese_12.png");
 
         productsWithQuantityPopup.add(flour);
         productsWithQuantityPopup.add(milk);
@@ -91,7 +96,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         productsWithQuantityPopup.add(cheese);
         productsWithQuantityPopup.add(cheese2);
         productsWithQuantityPopup.add(tomato);
-        //productsWithQuantityPopup.add(kneef);
+        productsWithQuantityPopup.add(knife);
 
 /* Map<NewProduct, QuantityPopup> tempMap = new HashMap<>();*/
       /*  Map<NewProduct, QuantityPopup> quantityPopups = new HashMap<>();
@@ -160,6 +165,15 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
                 new Rectangle(177, 152, 219 - 177 + 1, 174 - 152 + 1),
                 this);
         quantityPopupsMap.put(eggs, eggsQuantityPopup);
+
+        QuantityPopup knifeQuantityPopup = new QuantityPopup("eggs",
+                1, 6, 1,
+                "src/img/egg_quantity.png",
+                new Rectangle(329, 104, 362 - 329 + 1, 140 - 104 + 1),
+                new Rectangle(28, 104, 54 - 28 + 1, 140 - 104 + 1),
+                new Rectangle(177, 152, 219 - 177 + 1, 174 - 152 + 1),
+                this);
+        quantityPopupsMap.put(eggs, knifeQuantityPopup);
 
         // создание сыра
         QuantityPopup cheeseQuantityPopup = new QuantityPopup("cheese",
@@ -247,6 +261,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        knife.addMouseListener(this);
        /* Object source = event.getSource();
         for(NewProduct product : quantityPopups.keySet()) {
             QuantityPopup quantityPopup = quantityPopups.get(product);
@@ -273,12 +288,20 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
                 product.returnToOriginalLocation(); // Возвращает продукт на место.
                 System.out.println("Selected quantity for " + product.getName() + ": " + quantityPopup.getValue());
 
-
+/*     // Если выбран сыр, заменяем доску.
+                if (entry.getKey() == cheese2) {
+                    remove(this.board); // Удаляем текущую доску.
+                    boardWithCheese = new NewProduct("board_cheese_1", false, "src/img/board_cheese_1.png", "src/img/board_cheese_1.png", "src/img/board_cheese_1.png", "src/img/board_cheese_1.png");
+                    boardWithCheese.setBounds(board.getBounds()); // Сохраняем старые размеры и позицию.
+                    add(boardWithCheese);
+                    this.board = boardWithCheese; // Обновляем ссылку на доску.
+                    repaint();
+                }*/
 
                 if (product == cheese2) {
                     remove(board); // Удаляет старую доску.
                     // Создает новую доску с изображением сыра.
-                    NewProduct boardWithCheese = new NewProduct("board_cheese_1", false,
+                     boardWithCheese = new NewProduct("board_cheese_1", false,
                             "src/img/board_cheese_1.png", "src/img/board_cheese_1.png",
                             "src/img/board_cheese_1.png", "src/img/board_cheese_1.png");
                     boardWithCheese.setBounds(board.getBounds()); // Сохраняет положение и размер.
@@ -289,7 +312,6 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
 
                 if (product == cheese) {
                     remove(grater); // Удаляет старую доску.
-                    // Создает новую доску с изображением сыра.
                     NewProduct boardWithCheese = new NewProduct("grater_cheese", false,
                             "src/img/grater_cheese.png", "src/img/grater_cheese.png",
                             "src/img/grater_cheese.png", "src/img/grater_cheese.png");
@@ -298,6 +320,17 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
                     this.grater = boardWithCheese; // Обновляет ссылку на доску.
                     repaint(); // Перерисовывает компонент.
                 }
+//---------------------------------------------------------------------------------------------------------------------------------
+            /*    if (product == knife) {
+                    remove(boardWithCheese.name == "board_cheese_1"); // Удаляет старую доску.
+                    NewProduct boardWithCheese = new NewProduct("grater_cheese", false,
+                            "src/img/grater_cheese.png", "src/img/grater_cheese.png",
+                            "src/img/grater_cheese.png", "src/img/grater_cheese.png");
+                    boardWithCheese.setBounds(grater.getBounds()); // Сохраняет положение и размер.
+                    add(boardWithCheese); // Добавляет новую доску.
+                    this.grater = boardWithCheese; // Обновляет ссылку на доску.
+                    repaint(); // Перерисовывает компонент.
+                }*/
 
                 if (product == tomato) {
                     remove(mixer); // Удаляет старую доску.
@@ -315,6 +348,59 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
             }
         }
         //---------------------------------------------------------------------------------
+
+/*
+        if (source == knife) {
+            // Проверяем, существует ли объект boardWithCheese и имеет ли он нужное имя
+            if (this.board != null && this.board.getName() != null && this.board.getName().equals("board_cheese_1")) {
+                // Получаем границы ножа и доски с сыром
+                Rectangle knifeBounds = knife.getBounds();
+                Rectangle boardBounds = this.board.getBounds();
+
+                // Проверяем, пересекаются ли нож и доска с сыром
+                if (knifeBounds.intersects(boardBounds)) {
+                    System.out.println("Knife is on the cheese board!");
+
+                    // Удаляем старую доску с сыром
+                    remove(this.board);
+
+                    // Создаем новую картинку для объединенного объекта (например, нарезанный сыр на доске)
+                    // Замените "src/img/board_cheese_cut.png" на реальный путь к изображению
+                    NewProduct boardWithCutCheese = new NewProduct("board_cheese_2", false,
+                            "src/img/board_cheese_2.png", "src/img/board_cheese_2.png",
+                            "src/img/board_cheese_2.png", "src/img/board_cheese_2.png");
+
+                    // Устанавливаем новую картинку на место старой доски.
+                    // Сохраняем позицию и размер.
+                    boardWithCutCheese.setBounds(boardBounds);
+                    add(boardWithCutCheese); // Добавляем обновленную доску.
+
+                    // Обновляем ссылку на доску.
+                    this.board = boardWithCutCheese;
+
+                    repaint(); // Перерисовываем панель для отображения изменений.
+                    System.out.println("Cheese board changed to cut cheese board.");
+                }
+            }
+        }
+*/
+/*
+        if (NewProduct.name == knife) {
+            remove(mixer); // Удаляет старую доску.
+            // Создает новую доску с изображением сыра.
+            NewProduct boardWithCheese = new NewProduct("mixer_tomato", false,
+                    "src/img/mixer_tomato.png", "src/img/mixer_tomato.png",
+                    "src/img/mixer_tomato.png", "src/img/mixer_tomato.png");
+            boardWithCheese.setBounds(mixer.getBounds()); // Сохраняет положение и размер.
+            add(boardWithCheese); // Добавляет новую доску.
+            this.mixer = boardWithCheese; // Обновляет ссылку на доску.
+            repaint(); // Перерисовывает компонент.
+        }*/
+        /*for(){
+
+        }*/
+
+
 
     }
 
@@ -385,11 +471,83 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         }*/
         //-------------------------------------------------------------------------------------
         Object source = event.getSource();
+
+        if (source == knife) {
+            // Проверяем, есть ли уже доска с нарезанным сыром (boardWithCutCheese).
+            // Если да, и нож пересекает ее, ничего не делаем.
+            if (this.boardWithCutCheese != null && this.boardWithCutCheese.getBounds().intersects(knife.getBounds())) {
+                // Нож прошел по уже нарезанному сыру, ничего не меняем.
+                return; // Выходим, чтобы не проверять другие условия
+            }
+
+            // Если доска с нарезанным сыром еще не создана,
+            // Проверяем, является ли текущая доска "board_cheese_1" (доска с целым сыром).
+            if (this.board != null && this.board.getName().equals("board_cheese_1")) {
+                Rectangle knifeBounds = knife.getBounds();
+                Rectangle boardBounds = this.board.getBounds();
+
+                if (knifeBounds.intersects(boardBounds)) {
+                    // Если нож пересек доску с целым сыром, удаляем ее.
+                    remove(this.board);
+                    // Создаем новую доску с нарезанным сыром и добавляем ее.
+                    NewProduct boardWithCutCheese = new NewProduct("board_cheese_2", false, "src/img/board_cheese_12.png", "src/img/board_cheese_12.png", "src/img/board_cheese_12.png", "src/img/board_cheese_12.png");
+                    boardWithCutCheese.setBounds(boardBounds);
+                    add(boardWithCutCheese);
+                    this.board = boardWithCutCheese; // Обновляем ссылку на текущую доску
+                    repaint();
+                } else {
+                    // Если нож не попал по доске, возвращаем его на место.
+                    knife.returnToOriginalLocation();
+                    repaint();
+                }
+            } else {
+                // Если это обычная доска или чего-то нет, нож возвращается на место.
+                knife.returnToOriginalLocation();
+                repaint();
+            }
+        }
+
         if (source instanceof NewProduct) {
             NewProduct product = (NewProduct) source;
             // Вычисляем абсолютные координаты курсора.
             int x = event.getX() + product.getX();
             int y = event.getY() + product.getY();
+
+/*
+            if (source == knife) {
+                // Проверяем, является ли текущая доска доской с сыром (board_cheese_1).
+                if (this.board != null && this.board.getName() != null && this.board.getName().equals("board_cheese_1")) {
+                    Rectangle knifeBounds = knife.getBounds();
+                    Rectangle boardBounds = this.board.getBounds();
+
+                    // Проверка на пересечение ножа и доски.
+                    if (knifeBounds.intersects(boardBounds)) {
+                        System.out.println("Knife is on the cheese board!");
+                        remove(this.board); // Удаляем текущую доску с сыром.
+
+                        // Создаем новую доску с нарезанным сыром (board_cheese_2).
+                        NewProduct boardWithCutCheese = new NewProduct("board_cheese_2", false,
+                                "src/img/board_cheese_12.png", // Указанный путь к новому изображению.
+                                "src/img/board_cheese_12.png",
+                                "src/img/board_cheese_12.png",
+                                "src/img/board_cheese_12.png");
+
+                        boardWithCutCheese.setBounds(boardBounds); // Сохраняем положение и размер.
+                        add(boardWithCutCheese); // Добавляем новую доску.
+                        this.board = boardWithCutCheese; // Обновляем ссылку на доску.
+                        repaint(); // Перерисовываем для отображения изменений.
+                        System.out.println("Board changed to cut cheese board.");
+                    } else {
+                        // Если нож не пересек доску, возвращаем его на место.
+                        knife.returnToOriginalLocation();
+                        repaint();
+                    }
+                } else {
+                    // Если это не доска с сыром, возвращаем нож на место.
+                    knife.returnToOriginalLocation();
+                    repaint();
+                }
+            }*/
 
             // Проверка, если продукт отпущен в тарелке.
            /* if (dish.getBounds().contains(x, y) && productsWithQuantityPopup.contains(product)) {
@@ -407,6 +565,23 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
             if (source == milk && dish.getBounds().contains(x, y) && productsWithQuantityPopup.contains(product)) {
                 showQuantityPopup(milk, x, y, event);
             }
+//---------------------------------------------------------------------------------
+            /*if ( source==knife)
+            {
+                System.out.println("knife");
+                if (boardWithCheese.name == "board_cheese_1") {
+                    System.out.println("cheese");
+                    if (boardWithCheese.getBounds().contains(x, y)) {
+                        System.out.println("intersect");
+                    }
+                }
+                //showQuantityPopup(knife, x, y, event);
+                //System.out.println("111111111111111111111111111");
+            }*/
+
+
+
+//-----------------------------------------------------------------------------------
 
             if (source == tomato && mixer.getBounds().contains(x, y) && productsWithQuantityPopup.contains(product)) {
                 showQuantityPopup(tomato, x, y, event);
@@ -418,6 +593,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
 
             if (source == cheese && grater.getBounds().contains(x, y) && productsWithQuantityPopup.contains(product)) {
                 showQuantityPopup(cheese, x, y, event);
+               // System.out.println("14144444");
             }
 
             // Проверка, если сыр отпущен на доске.
