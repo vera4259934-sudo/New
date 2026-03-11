@@ -3,7 +3,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Level_1 extends JLayeredPane implements MouseListener, ActionListener {
+public class Level_1_1 extends JLayeredPane implements MouseListener, ActionListener {
 
     private LayersContainer layersContainer;
 
@@ -38,61 +38,61 @@ public class Level_1 extends JLayeredPane implements MouseListener, ActionListen
     private boolean milkInDish = false;
     private boolean eggsInDish = false;
     private boolean flourInDish = false;
-/*---------------------------------------------------------------------------------------*/
+    /*---------------------------------------------------------------------------------------*/
 // Множество продуктов, для которых требуется окно ввода количества.
-private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
+    private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
     // Неизменяемая карта, связывающая продукты с их всплывающими окнами.
     private final Map<NewProduct, QuantityPopup> quantityPopups;
     boolean quantityPopupShown;
 
-    public Level_1() {
+    public Level_1_1() {
         backgroundIcon = new ImageIcon(getClass().getClassLoader().getResource("src/img/level1background.png"));
 
         flour = new NewProduct("flour", true,
-            "src/img/flour.png", "src/img/flour_selected.png",
-            "src/img/flourPartial.png", "src/img/flourPartial_selected.png");
+                "src/img/flour.png", "src/img/flour_selected.png",
+                "src/img/flourPartial.png", "src/img/flourPartial_selected.png");
         milk = new NewProduct("milk", true,
-            "src/img/milkFull.png", "src/img/milkFullSelected.png",
-            "src/img/milkPartial.png", "src/img/milkPartialSelected.png");
+                "src/img/milkFull.png", "src/img/milkFullSelected.png",
+                "src/img/milkPartial.png", "src/img/milkPartialSelected.png");
         eggs = new NewProduct("eggs", true,
-            "src/img/egg.png", "src/img/egg_selected.png",
-            "src/img/eggPartical.png", "src/img/eggPartical_selected.png");
+                "src/img/egg.png", "src/img/egg_selected.png",
+                "src/img/eggPartical.png", "src/img/eggPartical_selected.png");
         cheese = new NewProduct("cheese", true,
-            "src/img/cheese_1.png", "src/img/cheese_1_selected.png",
-            "src/img/cheese_1.png", "src/img/cheese_1_selected.png");
+                "src/img/cheese_1.png", "src/img/cheese_1_selected.png",
+                "src/img/cheese_1.png", "src/img/cheese_1_selected.png");
         cheese2 = new NewProduct("cheese2", true,
-            "src/img/cheese_2.png", "src/img/cheese_2_selected.png",
-            "src/img/cheese_2.png", "src/img/cheese_2_selected.png");
+                "src/img/cheese_2.png", "src/img/cheese_2_selected.png",
+                "src/img/cheese_2.png", "src/img/cheese_2_selected.png");
         tomato = new NewProduct("tomato", true,
-            "src/img/tomato.png", "src/img/tomato_selected.png",
-            "src/img/tomato.png", "src/img/tomato_selected.png");
+                "src/img/tomato.png", "src/img/tomato_selected.png",
+                "src/img/tomato.png", "src/img/tomato_selected.png");
         ketchup = new NewProduct("ketchup", true,
-            "src/img/ketchup.png", "src/img/ketchup_selected.png",
-            "src/img/ketchup.png", "src/img/ketchup_selected.png");
+                "src/img/ketchup.png", "src/img/ketchup_selected.png",
+                "src/img/ketchup.png", "src/img/ketchup_selected.png");
         oil = new NewProduct("oliveOil", true,
-            "src/img/oil.png", "src/img/oil_selected.png",
-            "src/img/oil.png", "src/img/oil_selected.png");
+                "src/img/oil.png", "src/img/oil_selected.png",
+                "src/img/oil.png", "src/img/oil_selected.png");
 
         // non-draggable:
         mixer = new NewProduct("mixer", false,
-            "src/img/mixer.png", "src/img/mixer.png",
-            "src/img/mixer.png", "src/img/mixer.png");
+                "src/img/mixer.png", "src/img/mixer.png",
+                "src/img/mixer.png", "src/img/mixer.png");
         board = new NewProduct("board", false,
-            "src/img/board.png","src/img/board.png",
-            "src/img/board.png","src/img/board.png");
+                "src/img/board.png","src/img/board.png",
+                "src/img/board.png","src/img/board.png");
         dish = new NewProduct("dish", false,
-            "src/img/dish.png","src/img/dish.png",
-            "src/img/dish.png","src/img/dish.png");
+                "src/img/dish.png","src/img/dish.png",
+                "src/img/dish.png","src/img/dish.png");
         grater = new NewProduct("grater", false,
                 "src/img/grater.png", "src/img/grater.png",
                 "src/img/grater.png", "src/img/grater.png");
         // draggable:
         spoon = new NewProduct("spoon", true,
-            "src/img/spoon.png","src/img/spoon_selected.png",
-            "src/img/spoon.png","src/img/spoon_selected.png");
+                "src/img/spoon.png","src/img/spoon_selected.png",
+                "src/img/spoon.png","src/img/spoon_selected.png");
         knife = new NewProduct("knife", true,
-            "src/img/kneef.png","src/img/kneef_selected.png",
-            "src/img/kneef.png","src/img/kneef_selected.png");
+                "src/img/kneef.png","src/img/kneef_selected.png",
+                "src/img/kneef.png","src/img/kneef_selected.png");
         boardWithCutCheese = new NewProduct("board_cheese_12", false,
                 "src/img/board_cheese_12.png","src/img/board_cheese_12.png",
                 "src/img/board_cheese_12.png","src/img/board_cheese_12.png");
@@ -172,7 +172,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         // Карта для всплывающих окон делается неизменяемой.
         this.quantityPopups = Collections.unmodifiableMap(quantityPopupsMap);
 
-    //    System.out.println(milk);
+        //    System.out.println(milk);
 
         //setLayout(null);
         Dimension backgroundSize = new Dimension(backgroundIcon.getIconWidth(), backgroundIcon.getIconHeight());
@@ -250,7 +250,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
                 if (product == cheese2) {
                     remove(board); // Удаляет старую доску.
                     // Создает новую доску с изображением сыра.
-                     boardWithCheese = new NewProduct("board_cheese_1", false,
+                    boardWithCheese = new NewProduct("board_cheese_1", false,
                             "src/img/board_cheese_1.png", "src/img/board_cheese_1.png",
                             "src/img/board_cheese_1.png", "src/img/board_cheese_1.png");
                     boardWithCheese.setBounds(board.getBounds()); // Сохраняет положение и размер.
@@ -407,7 +407,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
 
             if (source == cheese && grater.getBounds().contains(x, y) && productsWithQuantityPopup.contains(product)) {
                 showQuantityPopup(cheese, x, y, event);
-               // System.out.println("14144444");
+                // System.out.println("14144444");
             }
 
             // Проверка, если сыр отпущен на доске.
@@ -436,7 +436,7 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
         if (tomatoInMixer && cheeseCutOnBoard&& cheeseInGrater&& milkInDish&& flourInDish&& eggsInDish) { // Оба условия выполнены
             if (layersContainer != null) {
                 // Переключаемся на новый слой
-                layersContainer.showLayer(LayersContainer.Layer.LEVEL_1_1);
+                layersContainer.showLayer(LayersContainer.Layer.RECIPE);
             }
         }
     }
@@ -447,8 +447,8 @@ private final Set<NewProduct> productsWithQuantityPopup = new HashSet<>();
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
-        f.setTitle(Level_1.class.getSimpleName() + " test");
-        Level_1 level = new Level_1();
+        f.setTitle(Level_1_1.class.getSimpleName() + " test");
+        Level_1_1 level = new Level_1_1();
         f.getContentPane().add(level);
         int width = level.backgroundIcon.getIconWidth();
         int height = level.backgroundIcon.getIconHeight();

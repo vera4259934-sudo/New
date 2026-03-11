@@ -9,6 +9,8 @@ public class LayersContainer extends JPanel {
     FACT,
     RECIPE,
     LEVEL_1,
+    LEVEL_1_1,
+    LEVEL_1_2
   }
 
   protected final CardLayout cardLayout = new CardLayout();
@@ -24,6 +26,8 @@ public class LayersContainer extends JPanel {
     add(screenFact, String.valueOf(Layer.FACT));
     add(screenRecipe, String.valueOf(Layer.RECIPE));
     add(new Level_1(), String.valueOf(Layer.LEVEL_1));
+    add(new Level_1_1(), String.valueOf(Layer.LEVEL_1_1));
+    add(new Level_1(), String.valueOf(Layer.LEVEL_1_2));
     //add(new LevelNumber1(), String.valueOf(Layer.LEVEL_1));
   }
 
